@@ -3,10 +3,11 @@ import * as fs from "fs";
 import * as path from "path";
 import * as Busboy from "busboy";
 import {FileUploader} from "./RequestHandlers/FileUploader";
+import * as SocketIO from "socket.io";
 
 export class Routes {
 
-    public routes(app: Application): void {
+    public routes(app: Application, io : SocketIO.Server): void {
 
         // Allow Cross-Origin access to this server.
         app.use(function (req, res, next) {
@@ -19,6 +20,14 @@ export class Routes {
 
         app.get('/test', (req, res) => {
             res.end("That's all folks, yeah!");
+        });
+
+        app.get('/', (req,res) => {
+            res.send("hello");
+        })
+
+        io.on('connection', function(socket){
+            console.log('a user connected');
         });
 
         // Uploads a new file on the server.
