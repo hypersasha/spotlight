@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ed60a24cfb16580d1a4143ca1b932cb7",
+    "revision": "55b31cb4989a7a197bca77e8fdbfebc9",
     "url": "/spotlight/index.html"
   },
   {
@@ -8,16 +8,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/spotlight/static/css/2.01749317.chunk.css"
   },
   {
-    "revision": "e7715b9d22e64cdada14",
-    "url": "/spotlight/static/css/main.e39937ec.chunk.css"
+    "revision": "794164e47453051215ee",
+    "url": "/spotlight/static/css/main.5bc96b4e.chunk.css"
   },
   {
     "revision": "27c90b68856c822021cc",
     "url": "/spotlight/static/js/2.dce377a6.chunk.js"
   },
   {
-    "revision": "e7715b9d22e64cdada14",
-    "url": "/spotlight/static/js/main.afc35ad9.chunk.js"
+    "revision": "794164e47453051215ee",
+    "url": "/spotlight/static/js/main.c7273fc7.chunk.js"
   },
   {
     "revision": "8ee9b36eb95e6e5428f2",
