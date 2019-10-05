@@ -1,9 +1,9 @@
 {
-  "name": "vkapp",
+  "name": "spotlight",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://hypersasha.github.io/vkapp/",
+  "homepage": "https://hypersasha.github.io/spotlight/",
   "scripts": {
     "start": "cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
