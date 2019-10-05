@@ -9,7 +9,7 @@ const SERVER_DIR_NAME = '';
 gulp.task("default", function () {
     return tsProject.src()
         .pipe(tsProject())
-        .js.pipe(gulp.dest("/dist"));
+        .js.pipe(gulp.dest("dist"));
 });
 
 // Starts server
@@ -23,7 +23,7 @@ gulp.task("start", function() {
 
 // Watch .ts
 gulp.task("watch",  gulp.series('default', function() {
-    gulp.watch('/src/**/*.ts', function() {
+    gulp.watch('src/**/*.ts', function() {
         return tsProject.src()
             .pipe(tsProject())
             .js.pipe(gulp.dest("dist"));
