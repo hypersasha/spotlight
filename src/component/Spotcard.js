@@ -16,10 +16,10 @@ const Spotcard = () => (
             </div>
             <div className='spotcard-inforow'>
                 <Cell 
+                    description={'I Like (the idea of) You'}
                     before={<Avatar src={"https://image-ticketfly.imgix.net/00/03/20/63/52-og.jpg?w=300&h=300"} size={42} />}
-                    asideContent={<Button>Засветиться</Button>}>
-                    <p className={'spotcard-info-title'}>Tessa Violet</p>
-                    <p className={'spotcard-info-title description'}>I like (the idea of) You</p>
+                    asideContent={<Button onClick={() => console.log('Lights on!')}>Засветиться</Button>}>
+                            Tessa Violet
                 </Cell>
             </div>    
         </div>
