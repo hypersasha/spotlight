@@ -16,7 +16,7 @@ class Index {
     constructor() {
         this.app = express();
         this.app.use('/uploads', express.static(path.resolve(__dirname, './uploads')));
-        this.server = Server(this.app);
+        this.server = new Server(this.app);
         this.io = socketIO(this.server);
         this.listen();
         this.routesMap.routes(this.app, this.io);
