@@ -6,11 +6,13 @@ import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home';
 import Persik from './panels/Persik';
 import Spotroom from './panels/Spotroom';
+import { ConfigProvider } from '@vkontakte/vkui';
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
 	const [startParams, setStartParams] = useState({});
+	const [history, setHistory]  = useState(['home']);
 	//const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
 	useEffect(() => {
@@ -34,7 +36,30 @@ const App = () => {
 
 	const go = e => {
 		setActivePanel(e.currentTarget.dataset.to);
+		let currentHistory = history;
+		currentHistory.push(e.currentTarget.dataset.to);
+		setHistory(currentHistory);
+		connect.send('VKWebAppEnableSwipeBack');
 	};
+
+	const goId = panelId => {
+		setActivePanel(panelId);
+		let currentHistory = history;
+		currentHistory.push(panelId);
+		setHistory(currentHistory);
+		connect.send('VKWebAppEnableSwipeBack');
+	}
+
+	const goBack = () => {
+		let history_tmp = history;
+		history_tmp.pop();
+		const prevPanel = history_tmp[history_tmp.length - 1];
+		if (prevPanel === 'home') {
+			connect.send('VKWebAppDisableSwipeBack')
+		}
+		setHistory(history_tmp);
+		setActivePanel(prevPanel);
+	}
 
 	function receiveStartParams() {
 		let hash = window.location.hash.substring(1);
@@ -45,14 +70,20 @@ const App = () => {
 			start_vars[hashInfo[0]] = hashInfo[1];
 		})
 		setStartParams(start_vars);
+
+		if (start_vars.room && start_vars.room !== '') {
+			goId('spotroom');
+		}
 	}
 
 	return (
-		<View activePanel={activePanel}>
+		<ConfigProvider isWebView={true}>
+		<View activePanel={activePanel} history={history} onSwipeBack={goBack}>
 			<Home id='home' fetchedUser={fetchedUser} go={go} />
 			<Persik id='persik' go={go} />
 			<Spotroom id='spotroom' go={go} startParams={startParams} />
 		</View>
+		</ConfigProvider>
 	);
 }
 
