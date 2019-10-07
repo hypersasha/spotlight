@@ -38,16 +38,24 @@ const App = () => {
 		setActivePanel(e.currentTarget.dataset.to);
 		let currentHistory = history;
 		currentHistory.push(e.currentTarget.dataset.to);
+
+		if (activePanel === 'home') {
+			connect.send('VKWebAppEnableSwipeBack');
+		} 
+
 		setHistory(currentHistory);
-		connect.send('VKWebAppEnableSwipeBack');
 	};
 
 	const goId = panelId => {
 		setActivePanel(panelId);
 		let currentHistory = history;
 		currentHistory.push(panelId);
+
+		if (activePanel === 'home') {
+			connect.send('VKWebAppEnableSwipeBack');
+		} 
+
 		setHistory(currentHistory);
-		connect.send('VKWebAppEnableSwipeBack');
 	}
 
 	const goBack = () => {
@@ -81,7 +89,7 @@ const App = () => {
 		<View activePanel={activePanel} history={history} onSwipeBack={goBack}>
 			<Home id='home' fetchedUser={fetchedUser} go={go} />
 			<Persik id='persik' go={go} />
-			<Spotroom id='spotroom' go={go} startParams={startParams} />
+			<Spotroom id='spotroom' go={goBack} startParams={startParams} />
 		</View>
 		</ConfigProvider>
 	);
