@@ -9,7 +9,7 @@ import { Footer } from '@vkontakte/vkui';
 const Home = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
 		<PanelHeader>Spotlight</PanelHeader>
-		<Spotcard />
+		<Spotcard go={go} />
 		<Footer>Нажмите «Засветиться», чтобы синхронизировать Ваш фонарик с другими людьми.</Footer>
 	</Panel>
 );

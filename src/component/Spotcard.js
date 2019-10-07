@@ -7,7 +7,7 @@ import Button from '@vkontakte/vkui/dist/components/Button/Button';
 
 import './spotcard.css';
 
-const Spotcard = () => (
+const Spotcard = (props) => (
     <Div>
         <div className={'spotcard-container'}>
             <div className={'spotcard-cover'}>
@@ -18,7 +18,7 @@ const Spotcard = () => (
                 <Cell 
                     description={'I Like (the idea of) You'}
                     before={<Avatar src={"https://image-ticketfly.imgix.net/00/03/20/63/52-og.jpg?w=300&h=300"} size={42} />}
-                    asideContent={<Button onClick={() => console.log('Lights on!')}>Засветиться</Button>}>
+                    asideContent={<Button onClick={props.go} data-to="spotroom">Засветиться</Button>}>
                             Tessa Violet
                 </Cell>
             </div>    
