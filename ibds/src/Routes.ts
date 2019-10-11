@@ -25,16 +25,16 @@ export class Routes {
         });
 
         io.on('connection', (socket) => {
-            socket.on('create', (track_id) => {
+            socket.on('create', (track_id, title, description) => {
                 let room_id = Utils.generateId(8);
                 socket.join(room_id);
-                let track = new Track(track_id, (tact, value) => {
+                let track = new Track(track_id, (tact: number, value: number) => {
                     console.log(tact + "---" + value)
                 });
-                let room = new Room(room_id, track);
+                let room = new Room(room_id, track, title, description);
                 room.users.push(socket.id);
                 this.running_rooms.push(room);
-                socket.emit('create_success', this.running_rooms);
+                socket.emit('create_success', room);
             });
 
             socket.on('join', (room_id) => {
@@ -60,11 +60,30 @@ export class Routes {
                         })
                     }
                 }
-            })
+            });
+
+            socket.on('play', (room_id) => {
+                let room = this.getRoomById(room_id);
+                if (room) {
+                    room.track.play();
+                }
+            });
+
+            socket.on('pause', (room_id) => {
+                let room = this.getRoomById(room_id);
+                if (room) {
+                    console.log("PAUSING!");
+                    room.track.pause();
+                }
+            });
         });
 
         app.get('/test', (req, res) => {
             res.end("That's all folks, yeah!");
+        });
+
+        app.get('/rooms', (req, res) => {
+            res.send(this.running_rooms);
         });
 
         // Uploads a new file on the server.
@@ -104,7 +123,7 @@ export class Routes {
         })
     }
 
-    private getRoomById(id) {
+    private getRoomById(id: string) {
         for (let i = 0; i < this.running_rooms.length; i++) {
             if (this.running_rooms[i].id === id) {
                 return this.running_rooms[i];
