@@ -46,6 +46,19 @@ export class Routes {
                 }
             });
 
+            socket.on('leave', (room_id) => {
+                console.log('here');
+                let room = this.getRoomById(room_id);
+                if (room) {
+                    if (this.running_rooms[this.running_rooms.indexOf(room)].users.indexOf(socket.id) !== -1) {
+                        this.running_rooms[this.running_rooms.indexOf(room)].users.splice(this.running_rooms[this.running_rooms.indexOf(room)].users.indexOf(socket.id), 1);
+                        if (this.running_rooms[this.running_rooms.indexOf(room)].users.length === 0) {
+                            this.running_rooms.splice(this.running_rooms.indexOf(room), 1);
+                        }
+                    }
+                }
+            });
+
             socket.on('disconnecting', () => {
                 if (Object.keys(socket.rooms).length > 1) {
                     for (let item in socket.rooms) {
